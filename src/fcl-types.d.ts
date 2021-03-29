@@ -1,3 +1,4 @@
 declare module '@onflow/fcl';
 declare module '@onflow/types';
-declare module 'caos-six-set-code';
+// declare module '@onflow/six-set-code';
+declare module 'caos-set-code';

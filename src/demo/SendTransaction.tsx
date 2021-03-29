@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import * as fcl from "@onflow/fcl"
 
 import Card from '../components/Card'
@@ -19,7 +19,7 @@ const SendTransaction = () => {
 
   const sendTransaction = async (event: any) => {
     event.preventDefault()
-    
+
     setStatus("Resolving...")
 
     try {
@@ -29,20 +29,11 @@ const SendTransaction = () => {
         fcl.payer(fcl.currentUser().authorization),
       ])
 
-      setStatus("Transaction sent, waiting for confirmation")
+      setStatus("Transaction sent, waiting for confirmation" + " trxId: " + res.transactionId)
 
-      // const unsub = fcl
-      //   .tx({ transactionId })
-      //   .subscribe((transaction: any) => {
-      //     setTransaction(transaction)
 
-      //     if (fcl.tx.isSealed(transaction)) {
-      //       setStatus("Transaction is Sealed")
-      //       unsub()
-      //     }
-      //   })
 
-      const trx = await fcl.tx(res).onceExecuted() 
+      const trx = await fcl.tx(res).onceExecuted()
       setTransaction(trx)
     } catch (error) {
       console.error(error);

@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import * as fcl from "@onflow/fcl"
 
 import Card from '../components/Card'
@@ -7,11 +7,14 @@ import Code from '../components/Code'
 
 const GetAccount = () => {
   const [data, setData] = useState(null)
-  const [addr, setAddr] = useState(null)
+  const [addr, setAddr] = useState('')
 
   const runGetAccount = async (event: any) => {
     event.preventDefault()
-
+    if (!addr) {
+      return
+    }
+    // const formatedAddr = addr.substr(2)
     const response = await fcl.send([
       fcl.getAccount(addr),
     ])
@@ -21,8 +24,9 @@ const GetAccount = () => {
 
   const updateAddr = (event: any) => {
     event.preventDefault();
+    const addr = event.target.value
 
-    setAddr(event.target.value)
+    setAddr(addr)
   }
 
   return (
@@ -36,7 +40,7 @@ const GetAccount = () => {
       <button onClick={runGetAccount}>
         Lookup Account
       </button>
-      
+
       {data && <Code>{JSON.stringify(data, null, 2)}</Code>}
     </Card>
   )
